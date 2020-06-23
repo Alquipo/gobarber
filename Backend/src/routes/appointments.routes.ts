@@ -1,10 +1,16 @@
 import { Router } from 'express';
-import { startOfHour, parseISO, isEqual } from 'date-fns';
-import Appointment from '../models/Appointment';
+import { startOfHour, parseISO } from 'date-fns';
+
+import AppointmentsRepository from '../repositories/AppointmentsRepository';
 
 const appointmentRouter = Router();
+const appointmentsRepository = new AppointmentsRepository();
 
-const appointments: Appointment[] = [];
+appointmentRouter.get('/', (request, response) => {
+  const appointments = appointmentsRepository.all();
+
+  return response.json(appointments);
+});
 
 appointmentRouter.post('/', (request, response) => {
   const { provider, date } = request.body;
@@ -12,9 +18,8 @@ appointmentRouter.post('/', (request, response) => {
   // CONVERTE PARA DATA E INICIA COM HORA ZERADA
   const parsedDate = startOfHour(parseISO(date));
 
-  // PERCORRE O ARRAY DE APPOINTMENT PARA COMPARAR AS DATAS
-  const findAppoitmentInSameDate = appointments.find(appointment =>
-    isEqual(parsedDate, appointment.date),
+  const findAppoitmentInSameDate = appointmentsRepository.findByDate(
+    parsedDate,
   );
 
   // SE A DATA JA ESTIVER MARCADA RETORNA O ERRO
@@ -24,9 +29,7 @@ appointmentRouter.post('/', (request, response) => {
       .json({ message: 'This appointment is already booked' });
   }
 
-  const appointment = new Appointment(provider, parsedDate);
-
-  appointments.push(appointment);
+  const appointment = appointmentsRepository.create(provider, parsedDate);
 
   return response.json(appointment);
 });
