@@ -1,6 +1,7 @@
 import express from 'express';
-// src/server.ts
 import routes from './routes';
+
+import './database';
 
 const app = express();
 

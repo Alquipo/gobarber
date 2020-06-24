@@ -9,6 +9,9 @@ interface RequestDTO {
 
 // Dependecy Inversion (SOliD)
 
+// single responsability principle
+// dependecy invertion prinple
+
 class CreateAppointmentService {
   private appointmentsRepository: AppointmentsRepository;
 
@@ -20,6 +23,7 @@ class CreateAppointmentService {
     // COLOCA SEMPRE HORARIO 0 NA DATA
     const appointmentDate = startOfHour(date);
 
+    // verificar se a data esta disponivel
     const findAppoitmentInSameDate = this.appointmentsRepository.findByDate(
       appointmentDate,
     );
