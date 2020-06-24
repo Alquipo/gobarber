@@ -1,4 +1,6 @@
 import { startOfHour } from 'date-fns';
+import { getCustomRepository } from 'typeorm';
+
 import Appointment from '../models/Appointment';
 import AppointmentsRepository from '../repositories/AppointmentsRepository';
 
@@ -7,24 +9,15 @@ interface RequestDTO {
   date: Date;
 }
 
-// Dependecy Inversion (SOliD)
-
-// single responsability principle
-// dependecy invertion prinple
-
 class CreateAppointmentService {
-  private appointmentsRepository: AppointmentsRepository;
+  public async execute({ date, provider }: RequestDTO): Promise<Appointment> {
+    const appointmentsRepository = getCustomRepository(AppointmentsRepository);
 
-  constructor(appointmentsRepository: AppointmentsRepository) {
-    this.appointmentsRepository = appointmentsRepository;
-  }
-
-  public execute({ date, provider }: RequestDTO): Appointment {
     // COLOCA SEMPRE HORARIO 0 NA DATA
     const appointmentDate = startOfHour(date);
 
     // verificar se a data esta disponivel
-    const findAppoitmentInSameDate = this.appointmentsRepository.findByDate(
+    const findAppoitmentInSameDate = await appointmentsRepository.findByDate(
       appointmentDate,
     );
 
@@ -33,10 +26,12 @@ class CreateAppointmentService {
       throw Error('This appointment is already booked');
     }
 
-    const appointment = this.appointmentsRepository.create({
+    const appointment = appointmentsRepository.create({
       provider,
       date: appointmentDate,
     });
+
+    await appointmentsRepository.save(appointment);
 
     return appointment;
   }
