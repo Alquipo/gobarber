@@ -31,6 +31,7 @@
   "rules": {
     "react/jsx-one-expression-per-line": "off",
     "react/jsx-props-no-spreading": "off",
+    "no-unused-expressions": "off",
     "react/prop-types": "off",
     "camelcase": "off",
     "no-console": "off",
