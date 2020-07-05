@@ -48,13 +48,13 @@ const SignUp: React.FC = () => {
 
         await api.post('/users', data);
 
-        history.push('/');
-
         addToast({
           type: 'success',
           title: 'Cadastro realizado!',
           description: 'Você já pode fazer seu logon no GoBarber!',
         });
+
+        history.push('/');
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
