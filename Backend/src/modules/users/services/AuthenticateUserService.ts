@@ -1,10 +1,10 @@
 import { getRepository } from 'typeorm';
 import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
-import authConfig from '../config/auth';
+import authConfig from '@config/auth';
 
-import AppError from '../errors/AppError';
-import User from '../models/User';
+import AppError from '@shared/errors/AppError';
+import User from '../infra/typeorm/entities/User';
 
 interface Request {
   email: string;
@@ -27,7 +27,7 @@ class AuthenticateUserService {
     }
 
     // user.password - senha criptografada
-    // passowrd - senha nao criptografada
+    // password - senha nao criptografada
 
     const passwordMatched = await compare(password, user.password);
 
@@ -37,7 +37,7 @@ class AuthenticateUserService {
 
     const { secret, expiresIn } = authConfig.jwt;
 
-    // usuario autenticado
+    // usuário autenticado
     const token = sign({}, secret, {
       subject: user.id,
       expiresIn,

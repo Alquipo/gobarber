@@ -1,9 +1,9 @@
 import { startOfHour } from 'date-fns';
 import { getCustomRepository } from 'typeorm';
 
-import AppError from '../errors/AppError';
+import AppError from '@shared/errors/AppError';
 
-import Appointment from '../models/Appointment';
+import Appointment from '../infra/typeorm/entities/Appointment';
 import AppointmentsRepository from '../repositories/AppointmentsRepository';
 
 interface RequestDTO {
@@ -18,16 +18,16 @@ class CreateAppointmentService {
   }: RequestDTO): Promise<Appointment> {
     const appointmentsRepository = getCustomRepository(AppointmentsRepository);
 
-    // COLOCA SEMPRE HORARIO 0 NA DATA
+    // COLOCA SEMPRE HORÁRIO 0 NA DATA
     const appointmentDate = startOfHour(date);
 
     // verificar se a data esta disponivel
-    const findAppoitmentInSameDate = await appointmentsRepository.findByDate(
+    const findAppointmentInSameDate = await appointmentsRepository.findByDate(
       appointmentDate,
     );
 
     // SE A DATA JA ESTIVER MARCADA RETORNA O ERRO
-    if (findAppoitmentInSameDate) {
+    if (findAppointmentInSameDate) {
       throw Error('This appointment is already booked');
     }
 
