@@ -21,7 +21,7 @@ class CreateAppointmentService {
     // COLOCA SEMPRE HORÁRIO 0 NA DATA
     const appointmentDate = startOfHour(date);
 
-    // verificar se a data esta disponivel
+    // verificar se a data esta disponível
     const findAppointmentInSameDate = await appointmentsRepository.findByDate(
       appointmentDate,
     );
