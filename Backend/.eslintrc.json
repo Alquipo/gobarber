@@ -27,6 +27,7 @@
     "prettier/prettier": "error",
     "no-console": "off",
     "class-methods-use-this": "off",
+    "no-useless-constructor": "off",
     "@typescript-eslint/naming-convention": [
       "error",
       {
