@@ -41,6 +41,7 @@ class SendForgotPasswordEmailService {
       'views',
       'forgot_password.hbs',
     );
+    console.log(forgotPasswordTemplate);
 
     await this.mailProvider.sendMail({
       to: {
