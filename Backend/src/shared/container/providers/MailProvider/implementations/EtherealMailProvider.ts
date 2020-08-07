@@ -18,12 +18,12 @@ export default class EtherealMailProvider implements IMailProvider {
         host: account.smtp.host,
         port: account.smtp.port,
         secure: account.smtp.secure,
-
         auth: {
           user: account.user,
           pass: account.pass,
         },
       });
+
       this.client = transporter;
     });
   }
@@ -46,7 +46,6 @@ export default class EtherealMailProvider implements IMailProvider {
       subject,
       html: await this.mailTemplateProvider.parse(templateData),
     });
-
     console.log('Message sent: %s', message.messageId);
     console.log('Preview URL: 5s', nodemailer.getTestMessageUrl(message));
   }
