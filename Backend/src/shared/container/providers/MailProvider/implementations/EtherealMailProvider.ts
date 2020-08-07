@@ -18,6 +18,7 @@ export default class EtherealMailProvider implements IMailProvider {
         host: account.smtp.host,
         port: account.smtp.port,
         secure: account.smtp.secure,
+
         auth: {
           user: account.user,
           pass: account.pass,
