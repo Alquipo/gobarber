@@ -29,8 +29,6 @@ app.use((err: Error, request: Request, response: Response) => {
     status: 'error',
     message: 'Internal server error',
   });
-
-  console.log(err);
 });
 
 app.listen(3333, () => {
