@@ -53,6 +53,7 @@ class CreateAppointmentService {
     // verificar se a data esta disponível
     const findAppointmentInSameDate = await this.appointmentsRepository.findByDate(
       appointmentDate,
+      provider_id,
     );
 
     // SE A DATA JA ESTIVER MARCADA RETORNA O ERRO
