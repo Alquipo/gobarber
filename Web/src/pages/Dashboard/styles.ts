@@ -205,7 +205,7 @@ export const Appointment = styled.div`
 `;
 
 export const Calendar = styled.aside`
-  width: 300px;
+  width: 380px;
 
   .DayPicker {
     background: #28262e;
