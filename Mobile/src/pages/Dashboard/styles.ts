@@ -45,7 +45,7 @@ export const ProvidersListTitle = styled.Text`
   font-size: 24px;
   margin-bottom: 24px;
   color: #f4ede8;
-  font-family: 'RobotoSlan-Medium';
+  font-family: 'RobotoSlab-Medium';
 `;
 export const ProviderContainer = styled(RectButton)`
   background: #3e3b47;
@@ -65,7 +65,7 @@ export const ProviderInfo = styled.View`
   margin-left: 20px;
 `;
 export const ProviderName = styled.Text`
-  font-family: 'RobotoSlab-Medium'
+  font-family: 'RobotoSlab-Medium';
   font-size: 18px;
   color: #f4ede8;
 `;
